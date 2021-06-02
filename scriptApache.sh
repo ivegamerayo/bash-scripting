@@ -103,7 +103,7 @@ echo ""
 echo -e "$green"    
 printf "\nIntroduce la ruta de la carpeta raiz: "
 read carpeta_raiz
-$carpeta_raiz
+mkdir $carpeta_raiz
 
 mkdir $carpeta_raiz
 
