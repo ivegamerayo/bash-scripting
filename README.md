@@ -8,7 +8,7 @@ sudo apt install git
 git clone https://github.com/ivegamerayo/bash-scripting.git
 cd bash-scripting
 chmod +x scriptApache.sh
-./scriptApache.sh
+sudo ./scriptApache.sh
 ```
 
 * [Contact](https://www.instagram.com/ntw_fotografos) - Ignacio Vega
