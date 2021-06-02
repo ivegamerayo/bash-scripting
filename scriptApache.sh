@@ -39,9 +39,39 @@ echo -e "$white"
 sudo hostnamectl set-hostname $host
 echo ""
 echo -e " 		[+]$yellow Cambio de usuario completado $nc[$green✓$nc] $nc[+]"
+
 # INSTALACION DE LOS SERVICIOS
 printf "\nInstalacion de Apache2 y FTP"
 apt install apache2 vsftpd sed -y
+
+#CONFIGURACION DEL DISCO
+echo ""
+echo -e "                    $Cyan Configuracion de disco duro$nc"
+echo -e "$green"
+read -p "Introduce un disco a formatear: " disco
+read -p "Introduce donde lo quieres montar: " montar_disco
+
+(echo n;
+    echo p;
+    echo 1;
+    echo ;
+    echo ;
+echo w;) | fdisk $disco
+
+mkfs.ext4 ${disco}1
+
+mkdir $montar_disco
+
+
+fstab=/etc/fstab
+
+    echo "${disco}1 $montar_disco ext4 defaults 0 0" >> /etc/fstab
+
+
+mount -a
+
+echo ""
+echo -e " 		[+]$yellow Configurado /etc/fstab con exito $nc[$green✓$nc] $nc[+]"
 
 # Introduccion de la informacion basica
 
