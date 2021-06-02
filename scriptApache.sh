@@ -33,7 +33,8 @@ echo ""
 echo -e "                     $Cyan Cambio de IP"
 echo ""
 echo -e "$green"
-read -p "Introduce la direccion de red \nEx: 172.16.100.220: Por defecto se anyade mascara 255.255.255.0: " address_principal
+echo "Introduce la direccion de red"
+read -p "Ex: 172.16.100.220: Por defecto se anyade mascara 255.255.255.0: " address_principal
 read -p "Introduce la gateway: " gateway
 read -p "nameservers: " nameservers
 
@@ -99,7 +100,7 @@ echo -e " 		[+]$yellow Configurado /etc/fstab con exito $nc[$green✓$nc] $nc[+]
 
 echo -e "                    $Cyan Configuracion de FTP y Apache$nc"
 echo ""
-echo -e "$green"
+echo -e "$green"    
 printf "\nIntroduce la ruta de la carpeta raiz: "
 read carpeta_raiz
 carpeta_raiz = $montar_disco/$carpeta_raiz
