@@ -103,21 +103,21 @@ echo ""
 echo -e "$green"    
 printf "\nIntroduce la ruta de la carpeta raiz: "
 read carpeta_raiz
-carpeta_raiz = $montar_disco/$carpeta_raiz
+raiz = $montar_disco/$carpeta_raiz
 
-mkdir $carpeta_raiz
+mkdir $raiz
 
 printf "\nIntroduce el sitio: "
 read empresa1
 
-mkdir $carpeta_raiz/$empresa1
+mkdir $raiz/$empresa1
 
 printf "\nIntroduce otro sitio: "
 read empresa2
 
-mkdir $carpeta_raiz/$empresa2
+mkdir $raiz/$empresa2
 
-chmod -R 777 $carpeta_raiz
+chmod -R 777 $raiz
 
 # Configuracion de vsftpd.conf
 echo "write_enable=YES" >> /etc/vsftpd.conf
@@ -130,8 +130,8 @@ systemctl restart vsftpd
 # Modificacion /etc/shells
 echo "/usr/sbin/nologin" >> /etc/shells
 
-useradd -g ftp -d $carpeta_raiz/$empresa1 -m -s /usr/sbin/nologin --password 'Ponferrada2014' $empresa1
-useradd -g ftp -d $carpeta_raiz/$empresa2 -m -s /usr/sbin/nologin --password 'Ponferrada2014' $empresa2
+useradd -g ftp -d $raiz/$empresa1 -m -s /usr/sbin/nologin --password 'Ponferrada2014' $empresa1
+useradd -g ftp -d $raiz/$empresa2 -m -s /usr/sbin/nologin --password 'Ponferrada2014' $empresa2
 
 #Generar el certificado
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem
@@ -166,15 +166,15 @@ echo "</Directory>" >> /etc/apache2/apache2.conf
 
 
 #Generar los index
-echo "Bienvenido a $empresa1" > $carpeta_raiz/$empresa1/index.html
-echo "Bienvenido a $empresa2" > $carpeta_raiz/$empresa2/index.html
+echo "Bienvenido a $empresa1" > $raiz/$empresa1/index.html
+echo "Bienvenido a $empresa2" > $raiz/$empresa2/index.html
 
 touch /etc/apache2/sites-available/$empresa1.conf
 touch /etc/apache2/sites-available/$empresa2.conf
 
 echo "<virtualhost *:80>" >> /etc/apache2/sites-available/$empresa1.conf
 echo "ServerName www.$empresa1.es" >> /etc/apache2/sites-available/$empresa1.conf
-echo "DocumentRoot $carpeta_raiz/$empresa1" >> /etc/apache2/sites-available/$empresa1.conf
+echo "DocumentRoot $raiz/$empresa1" >> /etc/apache2/sites-available/$empresa1.conf
 
 echo "DirectoryIndex index.html" >> /etc/apache2/sites-available/$empresa1.conf
 echo "</virtualhost>" >> /etc/apache2/sites-available/$empresa1.conf
@@ -183,7 +183,7 @@ echo "</virtualhost>" >> /etc/apache2/sites-available/$empresa1.conf
 
 echo "<virtualhost *:80>" >> /etc/apache2/sites-available/$empresa2.conf
 echo "ServerName www.$empresa2.es" >> /etc/apache2/sites-available/$empresa2.conf
-echo "DocumentRoot $carpeta_raiz/$empresa2" >> /etc/apache2/sites-available/$empresa2.conf
+echo "DocumentRoot $raiz/$empresa2" >> /etc/apache2/sites-available/$empresa2.conf
 
 echo "DirectoryIndex index.html" >> /etc/apache2/sites-available/$empresa2.conf
 echo "</virtualhost>" >> /etc/apache2/sites-available/$empresa2.conf
