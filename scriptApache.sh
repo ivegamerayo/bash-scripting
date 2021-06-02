@@ -6,7 +6,9 @@ if [[ $EUID -ne 0 ]]; then
     echo -e "$red No estas en root.$nc"
     exit 1
 fi
-
+# Actualizacion del server
+apt update -y
+apt upgrade -y
 #Configuracion de ip estatica
 echo -e "                     $Cyan Cambio de IP"
 echo ""
