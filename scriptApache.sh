@@ -1,6 +1,44 @@
 #!/bin/bash
 clear
 
+#ROOT PRIVILEGIES
+if [[ $EUID -ne 0 ]]; then
+    echo -e "$red No estas en root.$nc"
+    exit 1
+fi
+
+#Configuracion de ip estatica
+echo -e "                     $Cyan Cambio de IP"
+echo ""
+echo -e "$green"
+read -p "Introduce la direccion de red \nEx: 172.16.100.220: Por defecto se anyade mascara 255.255.255.0: " address_principal
+read -p "Introduce la gateway: " gateway
+read -p "nameservers: " nameservers
+
+echo "network:" > /etc/netplan/00-installer-config.yaml
+echo " ethernets:" >> /etc/netplan/00-installer-config.yaml
+echo "    enp0s3:" >> /etc/netplan/00-installer-config.yaml
+echo "      dhcp4: no" >> /etc/netplan/00-installer-config.yaml
+echo "      addresses: [$address_principal/24]" >> /etc/netplan/00-installer-config.yaml
+echo "      gateway4: $gateway" >> /etc/netplan/00-installer-config.yaml
+echo "      nameservers:" >> /etc/netplan/00-installer-config.yaml
+echo "         addresses: [$nameservers]" >> /etc/netplan/00-installer-config.yaml
+# echo "version: 2" >> /etc/netplan/00-installer-config.yaml
+
+netplan apply
+
+echo -e " 		[+]$yellow Modificado el netplan correctamente $nc[$green✓$nc] $nc[+]"
+
+
+
+echo ""
+echo -e "                    $Cyan Cambiar el nombre del host$nc"
+echo -e "$green"
+read -p "Introduce el nombre del host: " host
+echo -e "$white"
+sudo hostnamectl set-hostname $host
+echo ""
+echo -e " 		[+]$yellow Cambio de usuario completado $nc[$green✓$nc] $nc[+]"
 # INSTALACION DE LOS SERVICIOS
 printf "\nInstalacion de Apache2 y FTP"
 apt install apache2 vsftpd sed -y
