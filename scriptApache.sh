@@ -158,7 +158,7 @@ systemctl restart vsftpd
 
 printf "Configurando /etc/apache2/apache2.conf"
 
-echo "<Directory /portales>" >> /etc/apache2/apache2.conf
+echo "<Directory $carpeta_raiz>" >> /etc/apache2/apache2.conf
 echo "Options Indexes FollowSymLinks" >> /etc/apache2/apache2.conf
 echo "AllowOverride None" >> /etc/apache2/apache2.conf
 echo "Require all granted" >> /etc/apache2/apache2.conf
