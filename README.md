@@ -10,6 +10,8 @@ cd bash-scripting
 chmod +x scriptApache.sh
 sudo ./scriptApache.sh
 ```
+Una vez finalizado el script se debe ejecutar
+```passwd usuario```
 
 * [Contact](https://www.instagram.com/ntw_fotografos) - Ignacio Vega
 # Authors :
